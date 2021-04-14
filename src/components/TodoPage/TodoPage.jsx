@@ -10,7 +10,7 @@ function TodoPage (props) {
   return(
     <div>
       <AddTodo />
-      <TodoList />
+      <TodoList todoList= {props.todoList}/>
       <p></p>
       <button
         onClick={onClickLoogOut}

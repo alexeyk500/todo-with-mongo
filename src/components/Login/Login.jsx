@@ -18,8 +18,6 @@ function Login(props){
     }
   }
 
-
-
   return (
       <form>
         <h3>Login please</h3>
