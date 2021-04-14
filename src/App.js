@@ -1,25 +1,27 @@
-import logo from './logo.svg';
-import './App.css';
+import React from 'react';
+import LoginContainer from './components/Login/LoginContainer';
+import TodoPageContainer from './components/TodoPage/TodoPageContainer';
+import {BrowserRouter, Route} from 'react-router-dom'; //HashRouter,
+import {createStore, applyMiddleware} from 'redux';
+import {Provider} from 'react-redux';
+import thunk from 'redux-thunk';
+import rootReducer from './store/rootReducer';
+
+const store = createStore(rootReducer, applyMiddleware(thunk));
+
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Provider store={store}>
+      <BrowserRouter>
+        <Route exact path='/' component={LoginContainer} />
+        <Route path='/todo_page' component={TodoPageContainer} />
+      </BrowserRouter>
+    </Provider>
   );
 }
 
 export default App;
+
+
+
