@@ -1,25 +1,33 @@
 const express = require('express');
 const router = express.Router();
-const Todo = require('./todo')
+const Todos = require('./todoModel');
+
 
 router.get('/todos', (req, res)=>{
-  res.send({method:'GET'})
+  Todos.find({})
+    .then(todos=>{res.send(todos)})
 });
 
 router.post('/todos', (req, res)=>{
-  //res.send({method:'POST'})
-  Todo.create(req.body)
+  todos.create(req.body)
     .then(todo=>{
       res.send(todo)
     })
 });
 
 router.put('/todos/:id', (req, res)=>{
-  res.send({method:'PUT'})
+  Todos.findOneAndUpdate({id: req.params.id}, req.body)
+    .then(()=>{
+      Todos.findOne({id: req.params.id})
+        .then( (todo)=>{res.send(todo)} )
+    })
 });
 
 router.delete('/todos/:id', (req, res)=>{
-  res.send({method:'DELETE'})
+  Todos.deleteOne({id: req.params.id})
+    .then((result)=>{
+      res.send(result)
+    })
 });
 
 module.exports = router;
